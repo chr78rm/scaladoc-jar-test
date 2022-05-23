@@ -13,7 +13,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <encoding>UTF-8</encoding>
-        <scala-maven-plugin.version>4.6.2-SNAPSHOT</scala-maven-plugin.version>
+        <scala-maven-plugin.version>4.6.2-EXPERIMENTAL</scala-maven-plugin.version>
         <displayCmd>false</displayCmd>
     </properties>
 
@@ -131,10 +131,8 @@
                                     <goal>doc-jar</goal>
                                 </goals>
                                 <phase>package</phase>
-                                 <configuration>
-                                    <fork>true</fork>
-                                    <forceUseArgFile>false</forceUseArgFile>
-                                     <displayCmd>false</displayCmd>
+                                <configuration>
+                                    <displayCmd>true</displayCmd>
                                     <jvmArgs>
                                         <jvmArg>-Xms64m</jvmArg>
                                         <jvmArg>-Xmx1024m</jvmArg>
@@ -157,6 +155,7 @@
                                     <goal>doc</goal>
                                 </goals>
                                 <configuration>
+                                    <reportOutputDirectory>scaladocs</reportOutputDirectory>
                                     <fork>true</fork>
                                     <forceUseArgFile>false</forceUseArgFile>
                                     <jvmArgs>
@@ -170,12 +169,71 @@
                                         <arg>scaladoc-jar-test</arg>
                                         <arg>-doc-version</arg>
                                         <arg>${project.version}</arg>
-                                        <!--
                                         <arg>-author</arg>
-                                        <arg>Christof Reichardt</arg>
-                                        -->
                                     </args>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala3-library_3</artifactId>
+                    <version>3.1.2</version>
+                </dependency>
+                <dependency>
+                    <groupId>de.christofreichardt</groupId>
+                    <artifactId>tracelogger</artifactId>
+                    <version>1.9.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>scala3-minimal</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.alchim31.maven</groupId>
+                        <artifactId>scala-maven-plugin</artifactId>
+                        <version>${scala-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>Scalac</id>
+                                <goals>
+                                    <goal>compile</goal>
+                                    <goal>testCompile</goal>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <args>
+                                        <arg>-deprecation</arg>
+                                        <arg>-release:17</arg>
+                                        <arg>-encoding</arg>
+                                        <arg>utf-8</arg>
+                                    </args>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>Scaladoc-jar</id>
+                                <goals>
+                                    <goal>doc-jar</goal>
+                                </goals>
+                                <phase>package</phase>
                             </execution>
                         </executions>
                     </plugin>
