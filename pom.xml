@@ -19,7 +19,30 @@
 
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.christofreichardt</groupId>
+            <artifactId>tracelogger</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
@@ -72,19 +95,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
             <dependencies>
@@ -92,11 +102,6 @@
                     <groupId>org.scala-lang</groupId>
                     <artifactId>scala-library</artifactId>
                     <version>2.13.8</version>
-                </dependency>
-                <dependency>
-                    <groupId>de.christofreichardt</groupId>
-                    <artifactId>tracelogger</artifactId>
-                    <version>1.9.0</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -175,19 +180,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
             <dependencies>
@@ -195,11 +187,6 @@
                     <groupId>org.scala-lang</groupId>
                     <artifactId>scala3-library_3</artifactId>
                     <version>3.1.2</version>
-                </dependency>
-                <dependency>
-                    <groupId>de.christofreichardt</groupId>
-                    <artifactId>tracelogger</artifactId>
-                    <version>1.9.0</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -237,16 +224,50 @@
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.scala-lang</groupId>
+                    <artifactId>scala3-library_3</artifactId>
+                    <version>3.1.2</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>scala3-failure</id>
+            <properties>
+                <scala-maven-plugin.version>4.6.1</scala-maven-plugin.version>
+            </properties>
+            <build>
+                <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.1</version>
+                        <groupId>net.alchim31.maven</groupId>
+                        <artifactId>scala-maven-plugin</artifactId>
+                        <version>${scala-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>attach-sources</id>
+                                <id>Scalac</id>
                                 <goals>
-                                    <goal>jar-no-fork</goal>
+                                    <goal>compile</goal>
+                                    <goal>testCompile</goal>
+                                    <goal>add-source</goal>
                                 </goals>
+                                <configuration>
+                                    <args>
+                                        <arg>-deprecation</arg>
+                                        <arg>-release:17</arg>
+                                        <arg>-encoding</arg>
+                                        <arg>utf-8</arg>
+                                    </args>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>Scaladoc-jar</id>
+                                <goals>
+                                    <goal>doc-jar</goal>
+                                </goals>
+                                <phase>package</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -257,11 +278,6 @@
                     <groupId>org.scala-lang</groupId>
                     <artifactId>scala3-library_3</artifactId>
                     <version>3.1.2</version>
-                </dependency>
-                <dependency>
-                    <groupId>de.christofreichardt</groupId>
-                    <artifactId>tracelogger</artifactId>
-                    <version>1.9.0</version>
                 </dependency>
             </dependencies>
         </profile>
