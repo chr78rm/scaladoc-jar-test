@@ -15,7 +15,7 @@
         <encoding>UTF-8</encoding>
         <scala-maven-plugin.version>4.7.2-EXPERIMENTAL</scala-maven-plugin.version>
         <displayCmd>false</displayCmd>
-        <scala-library.version>3.1.3</scala-library.version>
+        <scala-library.version>3.2.0</scala-library.version>
     </properties>
 
     <build>
