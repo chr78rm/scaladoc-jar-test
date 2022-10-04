@@ -13,7 +13,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <encoding>UTF-8</encoding>
-        <scala-maven-plugin.version>4.7.2-EXPERIMENTAL</scala-maven-plugin.version>
+        <scala-maven-plugin.version>4.7.3-EXPERIMENTAL</scala-maven-plugin.version>
         <displayCmd>false</displayCmd>
         <scala-library.version>3.2.0</scala-library.version>
     </properties>
@@ -102,7 +102,7 @@
                 <dependency>
                     <groupId>org.scala-lang</groupId>
                     <artifactId>scala-library</artifactId>
-                    <version>2.13.8</version>
+                    <version>2.13.9</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -238,7 +238,7 @@
         <profile>
             <id>scala3-failure</id>
             <properties>
-                <scala-maven-plugin.version>4.7.1</scala-maven-plugin.version>
+                <scala-maven-plugin.version>4.7.2</scala-maven-plugin.version>
             </properties>
             <build>
                 <plugins>
